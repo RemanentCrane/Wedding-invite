@@ -1,0 +1,37 @@
+@import url(shared-components.css);
+/* @import url(fonts.css); */
+
+.second-page-overlay {
+	position: relative;
+	background: rgba(0, 57, 90, 0.89);
+	padding: 10px;
+	max-width: 90%;
+	text-align: center;
+	border-radius: 14px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.second-page-overlay.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.second-page-header {
+	font-family: 'Great Vibes';
+	font-size: 36px;
+	display: block;
+	margin-top: 12px;
+	color: white;
+}
+
+.second-page-content {
+	font-family: 'Great Vibes';
+	font-size: 24px;
+	display: block;
+	margin-top: 12px;
+	color: white;
+}
