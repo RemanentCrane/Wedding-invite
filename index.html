@@ -41,15 +41,30 @@
 		}
 
 		/* Текстовый блок */
-		.overlay {
+		.homeOverlay {
 			position: relative;
-			/* background: rgba(255, 255, 255, 0.35); */
-			/* полупрозрачный блок */
 			padding: 28px;
 			max-width: 90%;
 			text-align: center;
-			/* border-radius: 14px; */
-			/* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); */
+			opacity: 0;
+			transform: translateY(30px);
+			transition: opacity 0.9s ease, transform 0.9s ease;
+		}
+
+		.homeOverlay.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Текстовый блок */
+		.overlay {
+			position: relative;
+			background: rgba(0, 57, 90, 0.89);
+			padding: 10px;
+			max-width: 90%;
+			text-align: center;
+			border-radius: 14px;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 
 			opacity: 0;
 			transform: translateY(30px);
@@ -116,13 +131,22 @@
 			margin-top: 12px;
 			color: white;
 		}
+
+		/*  */
+		.third-content {
+			font-family: 'Great Vibes';
+			font-size: 24px;
+			display: block;
+			margin-top: 12px;
+			color: white;
+		}
 	</style>
 </head>
 
 <body>
 
 	<section class="page">
-		<div class="overlay">
+		<div class ="homeOverlay">
 			<p>
 				<span class="signature">Wedding Day</span>
 				<br>
@@ -137,12 +161,13 @@
 		<div class="overlay">
 			<h1>Дорогие наши родные!</h1>
 			<p>
-				Мы рады сообщить вам о том, что совсем скоро состоится семейный ужин среди
-				самых родных и близких, посвященный нашему бракосочетанию.
-				<br><br>
-				Мы приглашаем вас разделить эту радость с нами.
-				<br><br>
-				Будем рады вас видеть.
+				Мы рады сообщить вам о том,
+				<br> что совсем скоро состоится семейный ужин 
+				<br> среди самых родных и близких,
+				<br> посвященный нашему бракосочетанию.
+				<br>
+				<br> Мы приглашаем вас разделить 
+				<br> эту радость с нами.
 			</p>
 		</div>
 	</section>
@@ -150,7 +175,7 @@
 	<section class="page">
 		<div class="overlay">
 			<h1>15 мая 2026 года</h1>
-			<p>
+			<p class="third-content">
 				<strong>13:40</strong> — церемония регистрации брака<br>
 				г. Липецк, ул. Ленина 28
 				<br><br>
@@ -171,7 +196,7 @@
 			});
 		}, { threshold: 0.4 });
 
-		document.querySelectorAll('.overlay').forEach(el => observer.observe(el));
+		document.querySelectorAll('.overlay, .homeOverlay').forEach(el => observer.observe(el));
 
 		// Параллакс фон для локальных файлов
 		const pages = document.querySelectorAll('.page');
