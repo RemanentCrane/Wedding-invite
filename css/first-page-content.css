@@ -1,0 +1,34 @@
+@import url(fonts.css);
+@import url(shared-components.css);
+
+/* Текстовый блок */
+.first-page-overlay {
+	position: relative;
+	padding: 28px;
+	max-width: 90%;
+	text-align: center;
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.first-page-overlay.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.first-page-header {
+	font-family: 'Great Vibes', cursive;
+	font-size: 48px;
+	display: block;
+	margin-top: 12px;
+	color: white;
+}
+
+.first-page-content {
+	font-family: 'Alex Brush';
+	margin-bottom: 32px;
+	font-size: 48px;
+	letter-spacing: 0.5px;
+	color: white;
+}
