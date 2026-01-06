@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Приглашение | Артем и Анна</title>
+
+	<!-- Шрифты -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:wght@400;500&display=swap"
+		rel="stylesheet">
+
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			font-family: 'Cormorant Garamond', serif;
+			overflow-x: hidden;
+			scroll-behavior: smooth;
+		}
+
+		/* Фон один для всего сайта */
+		body {
+			background: url('bg.png') center center / cover no-repeat fixed;
+			overflow-y: scroll;
+			scroll-snap-type: y mandatory;
+		}
+
+		/* Экран */
+		.page {
+			height: 100vh;
+			width: 100vw;
+			scroll-snap-align: start;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+		}
+
+		/* Текстовый блок */
+		.overlay {
+			position: relative;
+			/* background: rgba(255, 255, 255, 0.35); */
+			/* полупрозрачный блок */
+			padding: 28px;
+			max-width: 90%;
+			text-align: center;
+			/* border-radius: 14px; */
+			/* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); */
+
+			opacity: 0;
+			transform: translateY(30px);
+			transition: opacity 0.9s ease, transform 0.9s ease;
+		}
+
+		.overlay.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Заголовки */
+		h1 {
+			font-family: 'Playfair Display', cursive;
+			margin-bottom: 18px;
+			font-size: 28px;
+			letter-spacing: 0.5px;
+			color: white;
+		}
+
+		@font-face {
+			font-family: 'Alex Brush';
+			src: url(fonts/Alex_Brush/AlexBrush-Regular.ttf);
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: 'LavishlyYours';
+			src: url(fonts/Lavishly_Yours/LavishlyYours-Regular.ttf);
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		.wedding-day {
+			font-family: 'LavishlyYours';
+			margin-bottom: 32px;
+			font-size: 28px;
+			letter-spacing: 0.5px;
+			color: white;
+		}
+
+		.brush {
+			font-family: 'Alex Brush';
+			margin-bottom: 32px;
+			font-size: 48px;
+			letter-spacing: 0.5px;
+			color: white;
+		}
+
+
+		/* Основной текст */
+		p {
+			font-size: 18px;
+			line-height: 1.6;
+			color: white;
+		}
+
+		/* Имена каллиграфическим шрифтом */
+		.signature {
+			font-family: 'Great Vibes', cursive;
+			font-size: 48px;
+			display: block;
+			margin-top: 12px;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+
+	<section class="page">
+		<div class="overlay">
+			<p>
+				<span class="signature">Wedding Day</span>
+				<br>
+				<span class="brush">Artem & Anna</span>
+				<br>
+				<span class="signature">15.05.2026</span>
+			</p>
+		</div>
+	</section>
+
+	<section class="page">
+		<div class="overlay">
+			<h1>Дорогие наши родные!</h1>
+			<p>
+				Мы рады сообщить вам о том, что совсем скоро состоится семейный ужин среди
+				самых родных и близких, посвященный нашему бракосочетанию.
+				<br><br>
+				Мы приглашаем вас разделить эту радость с нами.
+				<br><br>
+				Будем рады вас видеть.
+			</p>
+		</div>
+	</section>
+
+	<section class="page">
+		<div class="overlay">
+			<h1>15 мая 2026 года</h1>
+			<p>
+				<strong>13:40</strong> — церемония регистрации брака<br>
+				г. Липецк, ул. Ленина 28
+				<br><br>
+				<strong>18:00</strong> — праздничный ужин<br>
+				Ресторан «Хочу другого»<br>
+				г. Липецк, ул. Пл. Революции 9
+			</p>
+		</div>
+	</section>
+
+	<script>
+		// Появление текста при скролле
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('visible');
+				}
+			});
+		}, { threshold: 0.4 });
+
+		document.querySelectorAll('.overlay').forEach(el => observer.observe(el));
+
+		// Параллакс фон для локальных файлов
+		const pages = document.querySelectorAll('.page');
+
+		pages.forEach(page => {
+			const bgPath = page.dataset.bg; // здесь берём относительный путь
+			const bgDiv = document.createElement('div');
+			bgDiv.style.backgroundImage = `url('${bgPath}')`;
+			bgDiv.style.position = 'absolute';
+			bgDiv.style.top = '0';
+			bgDiv.style.left = '0';
+			bgDiv.style.width = '100%';
+			bgDiv.style.height = '120%';
+			bgDiv.style.zIndex = '-1';
+			bgDiv.style.backgroundSize = 'cover';
+			bgDiv.style.backgroundPosition = 'center';
+			bgDiv.style.transform = 'translateY(0)';
+			page.insertBefore(bgDiv, page.firstChild);
+		});
+
+		// Обновление параллакса при скролле
+		window.addEventListener('scroll', () => {
+			pages.forEach(page => {
+				const rect = page.getBoundingClientRect();
+				const bg = page.querySelector('div:first-child');
+				bg.style.transform = `translateY(${rect.top * 0.5}px)`; // скорость параллакса
+			});
+		});
+
+	</script>
+
+</body>
+
+</html>
