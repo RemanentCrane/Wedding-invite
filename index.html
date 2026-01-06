@@ -15,6 +15,8 @@
 
 <body>
 
+	<audio id="bg-music" src="audio/bg.mp3" loop></audio>
+
 	<section class="page">
 		<div class="first-page-overlay">
 			<p>
@@ -63,6 +65,7 @@
 	</div>
 
 	<script>
+
 		// Появление текста при скролле
 		const observer = new IntersectionObserver((entries) => {
 			entries.forEach(entry => {
@@ -159,6 +162,14 @@
 
 			pages.forEach(page => pageObserver.observe(page));
 		});
+
+		document.addEventListener('click', () => {
+			const audio = document.getElementById('bg-music');
+			audio.volume = 0.4;
+
+			audio.play();
+		}, { once: true });
+
 	</script>
 
 </body>
