@@ -56,6 +56,12 @@
 		</div>
 	</section>
 
+	<div class="page-indicators">
+		<span class="dot"></span>
+		<span class="dot"></span>
+		<span class="dot"></span>
+	</div>
+
 	<script>
 		// Появление текста при скролле
 		const observer = new IntersectionObserver((entries) => {
@@ -96,6 +102,63 @@
 			});
 		});
 
+		document.addEventListener('DOMContentLoaded', () => {
+
+			const AUTO_DELAY = 5000;
+			const dots = document.querySelectorAll('.dot');
+
+			let currentIndex = 0;
+			let autoScrollStopped = false;
+			let autoScrollTimer = null;
+
+			function scrollToPage(index) {
+				pages[index].scrollIntoView({ behavior: 'smooth' });
+			}
+
+			function setActiveDot(index) {
+				dots.forEach((dot, i) => {
+					dot.classList.toggle('active', i === index);
+				});
+				currentIndex = index;
+			}
+
+			function stopAutoScroll() {
+				if (autoScrollStopped) return;
+				autoScrollStopped = true;
+				clearInterval(autoScrollTimer);
+			}
+
+			autoScrollTimer = setInterval(() => {
+				if (autoScrollStopped) return;
+
+				if (currentIndex < pages.length - 1) {
+					currentIndex++;
+					scrollToPage(currentIndex);
+				} else {
+					stopAutoScroll();
+				}
+			}, AUTO_DELAY);
+
+			dots.forEach((dot, index) => {
+				dot.addEventListener('click', () => {
+					stopAutoScroll();
+					scrollToPage(index);
+				});
+			});
+
+			const pageObserver = new IntersectionObserver(entries => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						const index = Array.from(pages).indexOf(entry.target);
+						if (index !== -1) {
+							setActiveDot(index);
+						}
+					}
+				});
+			}, { threshold: 0.6 });
+
+			pages.forEach(page => pageObserver.observe(page));
+		});
 	</script>
 
 </body>
