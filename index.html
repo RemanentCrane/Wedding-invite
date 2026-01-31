@@ -52,13 +52,17 @@
 				г. Липецк, ул. Ленина 28
 				<br><br>
 				<strong>18:30</strong> — праздничный ужин<br>
-				Ресторан «Хочу другого»<br>
-				г. Липецк, ул. Пл. Революции 9
+				Кафе «Luna»<br>
+				г. Липецк, ул. Фрунзе 1
 			</p>
 		</div>
 	</section>
 
 	<div class="page-indicators">
+		<span class="music-btn" id="music-toggle">
+			<img class="icon icon-play" src="css/svg/music-play.svg" alt="Play">
+			<img class="icon icon-pause" src="css/svg/music-pause.svg" alt="Pause">
+		</span>
 		<span class="dot"></span>
 		<span class="dot"></span>
 		<span class="dot"></span>
@@ -163,12 +167,18 @@
 			pages.forEach(page => pageObserver.observe(page));
 		});
 
-		document.addEventListener('click', () => {
-			const audio = document.getElementById('bg-music');
-			audio.volume = 0.4;
+		const audio = document.getElementById('bg-music');
+		const button = document.getElementById('music-toggle');
 
-			audio.play();
-		}, { once: true });
+		button.addEventListener('click', () => {
+			if (audio.paused) {
+				audio.play();
+				button.classList.add('playing');
+			} else {
+				audio.pause();
+				button.classList.remove('playing');
+			}
+		});
 
 	</script>
 
